@@ -1,0 +1,11 @@
+int main (){
+	int x,b,c;
+	{ 
+		float x;
+		char o;
+		{
+			if (b < b)
+			x = (b*3)+(3/b)/40+b;			
+		}	
+	}
+}
