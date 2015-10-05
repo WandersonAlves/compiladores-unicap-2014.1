@@ -268,8 +268,7 @@ public class Parser {
 			if (getTokenIdentificador(token) == Identificadores.idELSE){
 				posTokenAtual++;
 				command(token);
-			}
-				
+			}				
 		}
 		else if (getTokenIdentificador(token) == Identificadores.idWHILE || getTokenIdentificador(token) == Identificadores.idDO)
 			iteration(token);
@@ -389,7 +388,6 @@ public class Parser {
 			errorHelper(token, 2,posTokenAtual);
 		if (status)
 			block(token);
-
 	}
 
 	public static boolean identifier(ArrayList<Token> token) {
@@ -418,8 +416,7 @@ public class Parser {
 				posTokenAtual++;
 			else
 				errorHelper(token, 10,posTokenAtual);
-		} else if (identifier(token))
-		{
+		} else if (identifier(token)) {
 			if (stackSearch(token, symbolTable)){
 				if (E1.getTokenIdentificador() != 0){
 					System.out.println("STACK SEARCH");
@@ -488,8 +485,8 @@ public class Parser {
 				E1.setTokenIdentificador(0);
 			}
 			else{
-			E1.setTokenIdentificador(token.get(posTokenAtual).getTokenIdentificador());
-			E1.setTokenString(token.get(posTokenAtual).getTokenString());
+				E1.setTokenIdentificador(token.get(posTokenAtual).getTokenIdentificador());
+				E1.setTokenString(token.get(posTokenAtual).getTokenString());
 			}
 			posTokenAtual++;
 		}
@@ -508,8 +505,8 @@ public class Parser {
 				E1.setTokenIdentificador(0);
 			}
 			else{
-			E1.setTokenIdentificador(token.get(posTokenAtual).getTokenIdentificador());
-			E1.setTokenString(token.get(posTokenAtual).getTokenString());
+				E1.setTokenIdentificador(token.get(posTokenAtual).getTokenIdentificador());
+				E1.setTokenString(token.get(posTokenAtual).getTokenString());
 			}
 			posTokenAtual++;
 		}			
