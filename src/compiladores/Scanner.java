@@ -35,38 +35,29 @@ public class Scanner {
 	}
 
 	public static boolean isVar(char texto) {
-		if (Character.isAlphabetic(texto))
-			return true;
-		else if (Character.isDigit(texto))
-			return true;
-		else if (texto == '_')
+		if (Character.isAlphabetic(texto) || Character.isDigit(texto) || texto == '_')
 			return true;
 		else
 			return false;
 	}
-	public static boolean isValid (char texto){
+	public static boolean isValid (char texto) {
 		if (Character.isAlphabetic(texto) || Character.isDigit(texto) || texto == '_' || texto == '<' || texto =='>' || texto =='=' || texto  == '!' || texto == ',' || texto == '.' || texto == ';' || texto == '*' || texto == '+' || texto == '-' || texto == '/')
 			return true;
 		else
 			return false;
 	}
-	private static void igualdadeFixer (ArrayList<Token> tokens){
-
-		for (int tokenAtual = 0; tokenAtual < tokens.size(); tokenAtual++){
-			if (tokens.get(tokenAtual).getTokenIdentificador() == Identificadores.ATRIBUIÇÃO){
-				
+	private static void igualdadeFixer (ArrayList<Token> tokens) {
+		for (int tokenAtual = 0; tokenAtual < tokens.size(); tokenAtual++) {
+			if (tokens.get(tokenAtual).getTokenIdentificador() == Identificadores.ATRIBUIÇÃO) {				
 				tokenAtual++;
-				if (tokens.get(tokenAtual).getTokenIdentificador() == Identificadores.ATRIBUIÇÃO)
-				{
-					
+				if (tokens.get(tokenAtual).getTokenIdentificador() == Identificadores.ATRIBUIÇÃO) {				
 					tokens.remove(tokenAtual);
 					tokenAtual--;
 					tokens.get(tokenAtual).setTokenIdentificador(Identificadores.IGUALDADE);
 					tokens.get(tokenAtual).setTokenString("==");
 				}
 			}
-		}
-		
+		}		
 	}
 	/*public static boolean notValid(char texto){
 		if (Character.isAlphabetic(texto) || Character.isDigit(texto) || (char)valorTokenAtual ==)
@@ -210,58 +201,44 @@ public class Scanner {
 						if ((char) valorTokenAtual == '\n') {
 							linha++;
 							coluna = 0;
-							lista.add(new Token(1, valorTokenFixo, linha,
-									coluna));
+							lista.add(new Token(1, valorTokenFixo, linha, coluna));
 							valorTokenFixo = "";
 							break;
 						}
 						if ((char) valorTokenAtual == '\t') {
 							coluna+=4;
-							lista.add(new Token(1, valorTokenFixo, linha,
-									coluna));
+							lista.add(new Token(1, valorTokenFixo, linha, coluna));
 							valorTokenFixo = "";
 							break;
 						}
 						if ((char) valorTokenAtual == '=') {
-							lista.add(new Token(1, valorTokenFixo, linha,
-									coluna));
-							lista.add(new Token(30, (char) valorTokenAtual,
-									linha, coluna));
+							lista.add(new Token(1, valorTokenFixo, linha, coluna));
+							lista.add(new Token(30, (char) valorTokenAtual, linha, coluna));
 							valorTokenFixo = "";
 							break;
 						} else if ((char) valorTokenAtual == '+') {
-							lista.add(new Token(1, valorTokenFixo, linha,
-									coluna));
-							lista.add(new Token(31, (char) valorTokenAtual,
-									linha, coluna));
+							lista.add(new Token(1, valorTokenFixo, linha, coluna));
+							lista.add(new Token(31, (char) valorTokenAtual, linha, coluna));
 							valorTokenFixo = "";
 							break;
 						} else if ((char) valorTokenAtual == '-') {
-							lista.add(new Token(1, valorTokenFixo, linha,
-									coluna));
-							lista.add(new Token(32, (char) valorTokenAtual,
-									linha, coluna));
+							lista.add(new Token(1, valorTokenFixo, linha, coluna));
+							lista.add(new Token(32, (char) valorTokenAtual, linha, coluna));
 							valorTokenFixo = "";
 							break;
 						} else if ((char) valorTokenAtual == '*') {
-							lista.add(new Token(1, valorTokenFixo, linha,
-									coluna));
-							lista.add(new Token(33, (char) valorTokenAtual,
-									linha, coluna));
+							lista.add(new Token(1, valorTokenFixo, linha, coluna));
+							lista.add(new Token(33, (char) valorTokenAtual, linha, coluna));
 							valorTokenFixo = "";
 							break;
 						} else if ((char) valorTokenAtual == ';') {
-							lista.add(new Token(1, valorTokenFixo, linha,
-									coluna));
-							lista.add(new Token(22, (char) valorTokenAtual,
-									linha, coluna));
+							lista.add(new Token(1, valorTokenFixo, linha, coluna));
+							lista.add(new Token(22, (char) valorTokenAtual, linha, coluna));
 							valorTokenFixo = "";
 							break;
 						} else if ((char) valorTokenAtual == ',') {
-							lista.add(new Token(1, valorTokenFixo, linha,
-									coluna));
-							lista.add(new Token(23, (char) valorTokenAtual,
-									linha, coluna));
+							lista.add(new Token(1, valorTokenFixo, linha, coluna));
+							lista.add(new Token(23, (char) valorTokenAtual, linha, coluna));
 							valorTokenFixo = "";
 							break;
 						} else if ((char) valorTokenAtual == '/') {
@@ -279,8 +256,7 @@ public class Scanner {
 							// Se o proximo ponteiro for tbm uma / indica inicio
 							// de comentarios simples
 							if ((char) valorTokenAtual == '/') {
-								lista.add(new Token(1, valorTokenFixo, linha,
-										coluna));
+								lista.add(new Token(1, valorTokenFixo, linha, coluna));
 								while ((char) valorTokenAtual != '\n') {
 									valorTokenFixo = "";
 									valorTokenAtual = input.read();
@@ -294,8 +270,7 @@ public class Scanner {
 							// a barra e adiciona ela como divisão
 							else {
 //								input.reset();
-								lista.add(new Token(1, valorTokenFixo, linha,
-										coluna));
+								lista.add(new Token(1, valorTokenFixo, linha, coluna));
 								lista.add(new Token(34, '/', linha, coluna));
 								valorTokenFixo = "";
 								break;
@@ -322,50 +297,36 @@ public class Scanner {
 								coluna+=4;
 							}
 							if (Character.isDigit((char) valorTokenAtual)) {
-								while (Character
-										.isDigit((char) valorTokenAtual)) {
+								while (Character.isDigit((char) valorTokenAtual)) {
 									valorTokenFixo += (char) valorTokenAtual;
 									valorTokenAtual = input.read();
 									coluna++;
 									if ((char) valorTokenAtual == '=') {
-										lista.add(new Token(2, valorTokenFixo, linha,
-												coluna));
-										lista.add(new Token(30,
-												(char) valorTokenAtual, linha,
-												coluna));
+										lista.add(new Token(2, valorTokenFixo, linha, coluna));
+										lista.add(new Token(30, (char) valorTokenAtual, linha, coluna));
 										valorTokenFixo = "";
 										break;
 									}
 									else if ((char) valorTokenAtual == '/') {
-										lista.add(new Token(2, valorTokenFixo, linha,
-												coluna));
-										lista.add(new Token(34,
-												(char) valorTokenAtual, linha,
-												coluna));
+										lista.add(new Token(2, valorTokenFixo, linha, coluna));
+										lista.add(new Token(34, (char) valorTokenAtual, linha, coluna));
 										valorTokenFixo = "";
 										break;
 									}
 									else if ((char) valorTokenAtual == '*') {
-										lista.add(new Token(2, valorTokenFixo, linha,
-												coluna));
-										lista.add(new Token(33,
-												(char) valorTokenAtual, linha,
-												coluna));
+										lista.add(new Token(2, valorTokenFixo, linha, coluna));
+										lista.add(new Token(33, (char) valorTokenAtual, linha, coluna));
 										valorTokenFixo = "";
 										break;
 									}
 									 else if ((char) valorTokenAtual == ';') {
-											lista.add(new Token(2, valorTokenFixo, linha,
-													coluna));
-											lista.add(new Token(22, (char) valorTokenAtual,
-													linha, coluna));
+											lista.add(new Token(2, valorTokenFixo, linha, coluna));
+											lista.add(new Token(22, (char) valorTokenAtual, linha, coluna));
 											valorTokenFixo = "";
 											break;
 									 }
-									if (!Character
-											.isDigit((char) valorTokenAtual)) {
-										lista.add(new Token(2, valorTokenFixo,
-												linha, coluna));
+									if (!Character.isDigit((char) valorTokenAtual)) {
+										lista.add(new Token(2, valorTokenFixo, linha, coluna));
 										valorTokenFixo = "";
 										break;
 									}
@@ -373,8 +334,7 @@ public class Scanner {
 							}
 							// Mensagem de erro
 							else {
-								System.out
-										.println("Erro, float mal formado na linha "
+								System.out.println("Erro, float mal formado na linha "
 												+ linha
 												+ " e coluna "
 												+ coluna
@@ -390,18 +350,15 @@ public class Scanner {
 						// Assim invalidando o proximo token com uma letra a
 						// menos
 						// SOLVED
-						else if (!Character.isDigit((char) valorTokenAtual)
-								&& valorTokenAtual != 10 && valorTokenAtual != -1) {
-							lista.add(new Token(1, valorTokenFixo, linha,
-									coluna));
+						else if (!Character.isDigit((char) valorTokenAtual) && valorTokenAtual != 10 && valorTokenAtual != -1) {
+							lista.add(new Token(1, valorTokenFixo, linha, coluna));
 							valorTokenFixo = "";
 						}
 					}
 				}
 
 				// Se o caracter lido for caracter
-				if (Character.isAlphabetic((char) valorTokenAtual)
-						|| (char) valorTokenAtual == '_') {
+				if (Character.isAlphabetic((char) valorTokenAtual) || (char) valorTokenAtual == '_') {
 					valorTokenFixo += (char) valorTokenAtual;
 					valorTokenAtual = input.read();
 					coluna++;
@@ -414,38 +371,31 @@ public class Scanner {
 					}
 					if ((char) valorTokenAtual == '=') {
 						lista.add(new Token(20, valorTokenFixo, linha, coluna));
-						lista.add(new Token(30, (char) valorTokenAtual, linha,
-								coluna));
+						lista.add(new Token(30, (char) valorTokenAtual, linha, coluna));
 						valorTokenFixo = "";
 					} else if ((char) valorTokenAtual == '+') {
 						lista.add(new Token(20, valorTokenFixo, linha, coluna));
-						lista.add(new Token(31, (char) valorTokenAtual, linha,
-								coluna));
+						lista.add(new Token(31, (char) valorTokenAtual, linha, coluna));
 						valorTokenFixo = "";
 					} else if ((char) valorTokenAtual == '-') {
 						lista.add(new Token(20, valorTokenFixo, linha, coluna));
-						lista.add(new Token(32, (char) valorTokenAtual, linha,
-								coluna));
+						lista.add(new Token(32, (char) valorTokenAtual, linha, coluna));
 						valorTokenFixo = "";
 					} else if ((char) valorTokenAtual == '*') {
 						lista.add(new Token(20, valorTokenFixo, linha, coluna));
-						lista.add(new Token(33, (char) valorTokenAtual, linha,
-								coluna));
+						lista.add(new Token(33, (char) valorTokenAtual, linha, coluna));
 						valorTokenFixo = "";
 					} else if ((char) valorTokenAtual == '/') {
 						lista.add(new Token(20, valorTokenFixo, linha, coluna));
-						lista.add(new Token(34, (char) valorTokenAtual, linha,
-								coluna));
+						lista.add(new Token(34, (char) valorTokenAtual, linha, coluna));
 						valorTokenFixo = "";
 					} else if ((char) valorTokenAtual == ';') {
 						lista.add(new Token(20, valorTokenFixo, linha, coluna));
-						lista.add(new Token(22, (char) valorTokenAtual, linha,
-								coluna));
+						lista.add(new Token(22, (char) valorTokenAtual, linha, coluna));
 						valorTokenFixo = "";
 					} else if ((char) valorTokenAtual == ',') {
 						lista.add(new Token(20, valorTokenFixo, linha, coluna));
-						lista.add(new Token(23, (char) valorTokenAtual, linha,
-								coluna));
+						lista.add(new Token(23, (char) valorTokenAtual, linha, coluna));
 						valorTokenFixo = "";
 					} else if (isVar((char) valorTokenAtual)) {
 						while (isVar((char) valorTokenAtual)) {
@@ -457,95 +407,77 @@ public class Scanner {
 								coluna = 0;
 								if (valorTokenFixo.equals("int")) {
 									// Adiciona um identificador INT
-									lista.add(new Token(11, valorTokenFixo,
-											linha, coluna));
+									lista.add(new Token(11, valorTokenFixo, linha, coluna));
 									valorTokenFixo = "";
 									break;
 								} else if (valorTokenFixo.equals("float")) {
 									// Adiciona um identificador FLOAT
-									lista.add(new Token(12, valorTokenFixo,
-											linha, coluna));
+									lista.add(new Token(12, valorTokenFixo, linha, coluna));
 									valorTokenFixo = "";
 									break;
 								} else if (valorTokenFixo.equals("char")) {
 									// Adiciona um identificador CHAR
-									lista.add(new Token(15, valorTokenFixo,
-											linha, coluna));
+									lista.add(new Token(15, valorTokenFixo, linha, coluna));
 									valorTokenFixo = "";
 									break;
 								} else if (valorTokenFixo.equals("for")) {
 									// Adiciona um identificador FOR
-									lista.add(new Token(16, valorTokenFixo,
-											linha, coluna));
+									lista.add(new Token(16, valorTokenFixo, linha, coluna));
 									valorTokenFixo = "";
 									break;
 								} else if (valorTokenFixo.equals("do")) {
 									// Adiciona um identificador DO
-									lista.add(new Token(17, valorTokenFixo,
-											linha, coluna));
+									lista.add(new Token(17, valorTokenFixo, linha, coluna));
 									valorTokenFixo = "";
 									break;
 								} else if (valorTokenFixo.equals("while")) {
 									// Adiciona um identificador WHILE
-									lista.add(new Token(18, valorTokenFixo,
-											linha, coluna));
+									lista.add(new Token(18, valorTokenFixo, linha, coluna));
 									valorTokenFixo = "";
 									break;
 								} else if (valorTokenFixo.equals("else")) {
 									// Adiciona um identificador ELSE
-									lista.add(new Token(19, valorTokenFixo,
-											linha, coluna));
+									lista.add(new Token(19, valorTokenFixo, linha, coluna));
 									valorTokenFixo = "";
 									break;
 								} else if (valorTokenFixo.equals("if")) {
 									// Adiciona um identificador IF
-									lista.add(new Token(21, valorTokenFixo,
-											linha, coluna));
+									lista.add(new Token(21, valorTokenFixo, linha, coluna));
 									valorTokenFixo = "";
 									break;
 								} else if (valorTokenFixo.equals("main")) {
 									// Adiciona um identificador MAIN
-									lista.add(new Token(100, valorTokenFixo,
-											linha, coluna));
+									lista.add(new Token(100, valorTokenFixo, linha, coluna));
 									valorTokenFixo = "";
 									break;
 								} else {
-									lista.add(new Token(20, valorTokenFixo,
-											linha, coluna));
+									lista.add(new Token(20, valorTokenFixo, linha, coluna));
 									valorTokenFixo = "";
 									break;
 								}
 							}
 
 							if ((char) valorTokenAtual == '=') {
-								lista.add(new Token(20, valorTokenFixo, linha,
-										coluna));
-								lista.add(new Token(30, (char) valorTokenAtual,
-										linha, coluna));
+								lista.add(new Token(20, valorTokenFixo, linha, coluna));
+								lista.add(new Token(30, (char) valorTokenAtual, linha, coluna));
 								valorTokenFixo = "";
 								break;
 							}
 							if ((char) valorTokenAtual == '+') {
-								lista.add(new Token(20, valorTokenFixo, linha,
-										coluna));
-								lista.add(new Token(31, (char) valorTokenAtual,
-										linha, coluna));
+								lista.add(new Token(20, valorTokenFixo, linha, coluna));
+								lista.add(new Token(31, (char) valorTokenAtual, linha, coluna));
 								valorTokenFixo = "";
 								break;
 							}
 							if ((char) valorTokenAtual == ',') {
-								lista.add(new Token(20, valorTokenFixo, linha,
-										coluna));
-								lista.add(new Token(23, (char) valorTokenAtual,
-										linha, coluna));
+								lista.add(new Token(20, valorTokenFixo, linha, coluna));
+								lista.add(new Token(23, (char) valorTokenAtual, linha, coluna));
 								valorTokenFixo = "";
 								break;
 							}
 							if ((char) valorTokenAtual == ';') {
-								lista.add(new Token(20, valorTokenFixo, linha,
-										coluna));
-								lista.add(new Token(22, (char) valorTokenAtual,
-										linha, coluna));
+								lista.add(new Token(20, valorTokenFixo, linha, coluna));
+								lista.add(new Token(22, (char) valorTokenAtual, linha, coluna));
 								valorTokenFixo = "";
 								break;
 							}
@@ -567,43 +499,33 @@ public class Scanner {
 								if ((char) valorTokenAtual == '/') {
 									if (valorTokenFixo.equals("int")) {
 										// Adiciona um identificador INT
-										lista.add(new Token(11, valorTokenFixo,
-												linha, coluna));
+										lista.add(new Token(11, valorTokenFixo, linha, coluna));
 									} else if (valorTokenFixo.equals("float")) {
 										// Adiciona um identificador FLOAT
-										lista.add(new Token(12, valorTokenFixo,
-												linha, coluna));
+										lista.add(new Token(12, valorTokenFixo, linha, coluna));
 									} else if (valorTokenFixo.equals("char")) {
 										// Adiciona um identificador CHAR
-										lista.add(new Token(15, valorTokenFixo,
-												linha, coluna));
+										lista.add(new Token(15, valorTokenFixo, linha, coluna));
 									} else if (valorTokenFixo.equals("for")) {
 										// Adiciona um identificador FOR
-										lista.add(new Token(16, valorTokenFixo,
-												linha, coluna));
+										lista.add(new Token(16, valorTokenFixo, linha, coluna));
 									} else if (valorTokenFixo.equals("do")) {
 										// Adiciona um identificador DO
-										lista.add(new Token(17, valorTokenFixo,
-												linha, coluna));
+										lista.add(new Token(17, valorTokenFixo, linha, coluna));
 									} else if (valorTokenFixo.equals("while")) {
 										// Adiciona um identificador WHILE
-										lista.add(new Token(18, valorTokenFixo,
-												linha, coluna));
+										lista.add(new Token(18, valorTokenFixo, linha, coluna));
 									} else if (valorTokenFixo.equals("else")) {
 										// Adiciona um identificador ELSE
-										lista.add(new Token(19, valorTokenFixo,
-												linha, coluna));
+										lista.add(new Token(19, valorTokenFixo, linha, coluna));
 									} else if (valorTokenFixo.equals("if")) {
 										// Adiciona um identificador IF
-										lista.add(new Token(21, valorTokenFixo,
-												linha, coluna));
+										lista.add(new Token(21, valorTokenFixo, linha, coluna));
 									} else if (valorTokenFixo.equals("main")) {
 										// Adiciona um identificador MAIN
-										lista.add(new Token(100, valorTokenFixo,
-												linha, coluna));
+										lista.add(new Token(100, valorTokenFixo, linha, coluna));
 									} else {
-										lista.add(new Token(20, valorTokenFixo,
-												linha, coluna));
+										lista.add(new Token(20, valorTokenFixo, linha, coluna));
 									}
 							
 									while ((char) valorTokenAtual != '\n') {
@@ -624,8 +546,7 @@ public class Scanner {
 								else {
 									input.reset();
 									coluna--;
-									lista.add(new Token(20, valorTokenFixo,
-											linha, coluna));
+									lista.add(new Token(20, valorTokenFixo, linha, coluna));
 									lista.add(new Token(34, '/', linha, coluna));
 									valorTokenFixo = "";
 									break;
@@ -636,61 +557,51 @@ public class Scanner {
 									|| (char) valorTokenAtual == '\n') {
 								if (valorTokenFixo.equals("int")) {
 									// Adiciona um identificador INT
-									lista.add(new Token(11, valorTokenFixo,
-											linha, coluna));
+									lista.add(new Token(11, valorTokenFixo, linha, coluna));
 									valorTokenFixo = "";
 									break;
 								} else if (valorTokenFixo.equals("float")) {
 									// Adiciona um identificador FLOAT
-									lista.add(new Token(12, valorTokenFixo,
-											linha, coluna));
+									lista.add(new Token(12, valorTokenFixo, linha, coluna));
 									valorTokenFixo = "";
 									break;
 								} else if (valorTokenFixo.equals("char")) {
 									// Adiciona um identificador CHAR
-									lista.add(new Token(15, valorTokenFixo,
-											linha, coluna));
+									lista.add(new Token(15, valorTokenFixo, linha, coluna));
 									valorTokenFixo = "";
 									break;
 								} else if (valorTokenFixo.equals("for")) {
 									// Adiciona um identificador FOR
-									lista.add(new Token(16, valorTokenFixo,
-											linha, coluna));
+									lista.add(new Token(16, valorTokenFixo, linha, coluna));
 									valorTokenFixo = "";
 									break;
 								} else if (valorTokenFixo.equals("do")) {
 									// Adiciona um identificador DO
-									lista.add(new Token(17, valorTokenFixo,
-											linha, coluna));
+									lista.add(new Token(17, valorTokenFixo, linha, coluna));
 									valorTokenFixo = "";
 									break;
 								} else if (valorTokenFixo.equals("while")) {
 									// Adiciona um identificador WHILE
-									lista.add(new Token(18, valorTokenFixo,
-											linha, coluna));
+									lista.add(new Token(18, valorTokenFixo, linha, coluna));
 									valorTokenFixo = "";
 									break;
 								} else if (valorTokenFixo.equals("else")) {
 									// Adiciona um identificador ELSE
-									lista.add(new Token(19, valorTokenFixo,
-											linha, coluna));
+									lista.add(new Token(19, valorTokenFixo, linha, coluna));
 									valorTokenFixo = "";
 									break;
 								} else if (valorTokenFixo.equals("if")) {
 									// Adiciona um identificador IF
-									lista.add(new Token(21, valorTokenFixo,
-											linha, coluna));
+									lista.add(new Token(21, valorTokenFixo, linha, coluna));
 									valorTokenFixo = "";
 									break;
 								} else if (valorTokenFixo.equals("main")) {
 									// Adiciona um identificador MAIN
-									lista.add(new Token(100, valorTokenFixo,
-											linha, coluna));
+									lista.add(new Token(100, valorTokenFixo, linha, coluna));
 									valorTokenFixo = "";
 									break;
 								} else if (valorTokenAtual != 10) {
-									lista.add(new Token(20, valorTokenFixo,
-											linha, coluna));
+									lista.add(new Token(20, valorTokenFixo, linha, coluna));
 									valorTokenFixo = "";
 									break;
 								}
@@ -721,48 +632,37 @@ public class Scanner {
 							valorTokenAtual = input.read();
 							coluna++;
 							if ((char) valorTokenAtual == ';') {
-									lista.add(new Token(2, valorTokenFixo, linha,
-											coluna));
-									lista.add(new Token(22, (char) valorTokenAtual,
-											linha, coluna));
+									lista.add(new Token(2, valorTokenFixo, linha, coluna));
+									lista.add(new Token(22, (char) valorTokenAtual, linha, coluna));
 									valorTokenFixo = "";
 									break;
 							}
 							else if ((char) valorTokenAtual == '*') {
-								lista.add(new Token(2, valorTokenFixo, linha,
-										coluna));
-								lista.add(new Token(33, (char) valorTokenAtual,
-										linha, coluna));
+								lista.add(new Token(2, valorTokenFixo, linha, coluna));
+								lista.add(new Token(33, (char) valorTokenAtual, linha, coluna));
 								valorTokenFixo = "";
 								break;
 							}
 							else if ((char) valorTokenAtual == '/') {
-								lista.add(new Token(2, valorTokenFixo, linha,
-										coluna));
-								lista.add(new Token(34, (char) valorTokenAtual,
-										linha, coluna));
+								lista.add(new Token(2, valorTokenFixo, linha, coluna));
+								lista.add(new Token(34, (char) valorTokenAtual, linha, coluna));
 								valorTokenFixo = "";
 								break;
 							}
 							else if ((char) valorTokenAtual == '+') {
-								lista.add(new Token(2, valorTokenFixo, linha,
-										coluna));
-								lista.add(new Token(31, (char) valorTokenAtual,
-										linha, coluna));
+								lista.add(new Token(2, valorTokenFixo, linha, coluna));
+								lista.add(new Token(31, (char) valorTokenAtual, linha, coluna));
 								valorTokenFixo = "";
 								break;
 							}
 							else if ((char) valorTokenAtual == '-') {
-								lista.add(new Token(2, valorTokenFixo, linha,
-										coluna));
-								lista.add(new Token(32, (char) valorTokenAtual,
-										linha, coluna));
+								lista.add(new Token(2, valorTokenFixo, linha, coluna));
+								lista.add(new Token(32, (char) valorTokenAtual, linha, coluna));
 								valorTokenFixo = "";
 								break;
 							}
 							if (!Character.isDigit((char) valorTokenAtual)) {
-								lista.add(new Token(2, valorTokenFixo, linha,
-										coluna));
+								lista.add(new Token(2, valorTokenFixo, linha, coluna));
 								valorTokenFixo = "";
 								break;
 							}
@@ -785,8 +685,7 @@ public class Scanner {
 					if ((char) valorTokenAtual == '\t') {
 						coluna+=4;
 					}
-					if (Character.isDigit((char) valorTokenAtual)
-							|| Character.isAlphabetic((char) valorTokenAtual)) {
+					if (Character.isDigit((char) valorTokenAtual) || Character.isAlphabetic((char) valorTokenAtual)) {
 						valorTokenFixo += (char) valorTokenAtual;
 						valorTokenAtual = input.read();
 						coluna++;
@@ -798,12 +697,10 @@ public class Scanner {
 							coluna+=4;
 						}
 						if (valorTokenAtual == 39) {
-							lista.add(new Token(5, valorTokenFixo, linha,
-									coluna));
+							lista.add(new Token(5, valorTokenFixo, linha, coluna));
 							valorTokenFixo = "";
 						} else {
-							System.out
-									.println("Erro, char mal formado na linha: "
+							System.out.println("Erro, char mal formado na linha: "
 											+ linha
 											+ " coluna: "
 											+ coluna
@@ -858,8 +755,7 @@ public class Scanner {
 								linha++;
 								coluna = 0;
 							}
-							System.out
-									.println("Erro, caracter '!' requer '=' em seguida na linha: "
+							System.out.println("Erro, caracter '!' requer '=' em seguida na linha: "
 											+ linha + " coluna: " + coluna);
 							valorTokenFixo += (char) valorTokenAtual;
 							System.exit(1);
@@ -944,16 +840,13 @@ public class Scanner {
 					System.out.print("MaiorIgual: ");
 				else if (lista.get(i).getTokenIdentificador() == 40)
 					System.out.print("Igualdade: ");
-				System.out.println(lista.get(i).getTokenString() + " [" + i
-						+ "]");
+				System.out.println(lista.get(i).getTokenString() + " [" + i	+ "]");
 			}
 
 		} catch (IOException e) {
 			System.out.println("Erro ao abrir arquivo!");
 			System.exit(1);
-
 		}
 		return lista;
-
 	}
 }
